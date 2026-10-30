@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Trade-offs — Relocation Explorer</title>
+    <meta name="description" content="Explore relocation costs, lifestyle priorities, and household trade-offs with a fictional demo. No account or API key required to compare scenarios.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 pb-20">
+
+    <div class="max-w-[1600px] mx-auto px-4 pt-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-4">Moving <span class="text-blue-600">Trade-offs</span></h1>
+            <div class="mt-4 inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold px-4 py-2 rounded-full">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                Your inputs are saved in this browser. Generating an AI report sends them to Google Gemini.
+                <button onclick="clearCache()" class="inline-flex items-center gap-1 text-emerald-600 hover:text-red-500 transition-colors underline underline-offset-2" title="Delete all saved data">
+                    Clear saved data
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+            </div>
+            <p class="mt-4 text-slate-600">Compare the financial and lifestyle trade-offs of a move.</p>
+            <p class="mt-2 text-sm text-slate-500">Fictional demo household: Alex, Jordan, Riley, and Casey. All profiles, budgets, and ratings are illustrative.</p>
+            <a href="example-report.html" class="inline-block mt-4 text-blue-700 font-bold underline underline-offset-4">Read the sample HTML report →</a>
+        </header>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Family Unit
+             ═══════════════════════════════════════════════════ -->
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-rose-600 rounded-xl flex items-center justify-center text-white font-black text-lg">👨‍👩‍👧‍👦</div>
+            <div>
+                <h2 class="text-2xl font-black tracking-tight">Family Unit</h2>
+                <p class="text-xs text-slate-400 font-medium">Define the members of your family — personal traits influence the qualitative analysis</p>
+            </div>
+        </div>
+
+        <div class="card shadow-xl border-none mb-12" id="familyUnitCard">
+            <div class="border border-slate-200 rounded-xl p-4 mb-4 bg-white" id="familyInfo">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Current Location</label>
+                        <input type="text" value="Manchester, UK" id="familyCurrentLocation" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Manchester, UK">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Considering Moving To</label>
+                        <input type="text" value="Bologna, Florence" id="familyTargetDestinations" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Bologna, Florence, Bristol">
+                    </div>
+                </div>
+            </div>
+            <div id="familyMembers">
+                <!-- Member 1 -->
+                <div class="family-member border border-slate-200 rounded-xl p-4 mb-4 bg-slate-50/50" data-member-index="0">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-black text-slate-700">Member 1</span>
+                        <button onclick="removeFamilyMember(this)" class="text-slate-300 hover:text-red-500 transition-colors hidden remove-btn" title="Remove member">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                          <div>
+                              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Name</label>
+                              <input type="text" value="Alex" class="member-name w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="Name">
+                          </div>
+                          <div>
+                              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Age</label>
+                              <input type="number" value="38" class="member-age w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                          </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Gender</label>
+                            <select class="member-gender w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Profession</label>
+                            <input type="text" value="UX Designer" class="member-profession w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Race</label>
+                            <select class="member-race w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Not specified" selected>Not specified</option>
+                                <option value="European / White">European / White</option>
+                                <option value="Black / African">Black / African</option>
+                                <option value="South Asian">South Asian</option>
+                                <option value="East Asian">East Asian</option>
+                                <option value="Southeast Asian">Southeast Asian</option>
+                                <option value="Middle Eastern / North African">Middle Eastern / North African</option>
+                                <option value="Hispanic / Latino">Hispanic / Latino</option>
+                                <option value="Mixed / Multiracial">Mixed / Multiracial</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Origin</label>
+                            <select class="member-origin w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <optgroup label="Italy">
+                                    <option value="Not specified" selected>Not specified</option>
+                                    <option value="Italy — South">Italy — South</option>
+                                    <option value="Italy — Central">Italy — Central</option>
+                                    <option value="Italy — North">Italy — North</option>
+                                </optgroup>
+                                <optgroup label="United Kingdom">
+                                    <option value="UK — England">UK — England</option>
+                                    <option value="UK — Scotland">UK — Scotland</option>
+                                    <option value="UK — Wales">UK — Wales</option>
+                                    <option value="UK — Northern Ireland">UK — Northern Ireland</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Eastern Europe">Eastern Europe</option>
+                                    <option value="Scandinavia">Scandinavia</option>
+                                    <option value="Other European">Other European</option>
+                                </optgroup>
+                                <optgroup label="Rest of World">
+                                    <option value="Middle East / North Africa">Middle East / North Africa</option>
+                                    <option value="Sub-Saharan Africa">Sub-Saharan Africa</option>
+                                    <option value="South Asia">South Asia</option>
+                                    <option value="East Asia">East Asia</option>
+                                    <option value="Southeast Asia">Southeast Asia</option>
+                                    <option value="Latin America">Latin America</option>
+                                    <option value="North America">North America</option>
+                                    <option value="Oceania">Oceania</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3 grid grid-cols-[160px_1fr] gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Risk Tolerance</label>
+                            <select class="member-risk-tolerance w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="High">🟢 High</option>
+                                <option value="Moderate" selected>🟡 Moderate</option>
+                                <option value="Low">🔴 Low</option>
+                                <option value="N/A">⬜ N/A</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Family Location</label>
+                            <input type="text" value="Manchester, UK" class="member-location w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Bristol, Italy">
+                        </div>
+                    </div>
+                </div>
+                <!-- Member 2 -->
+                <div class="family-member border border-slate-200 rounded-xl p-4 mb-4 bg-slate-50/50" data-member-index="1">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-black text-slate-700">Member 2</span>
+                        <button onclick="removeFamilyMember(this)" class="text-slate-300 hover:text-red-500 transition-colors hidden remove-btn" title="Remove member">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Name</label>
+                            <input type="text" value="Jordan" class="member-name w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="Name">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Age</label>
+                            <input type="number" value="36" class="member-age w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Gender</label>
+                            <select class="member-gender w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Male">Male</option>
+                                <option value="Female" selected>Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Profession</label>
+                            <input type="text" value="Librarian" class="member-profession w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Race</label>
+                            <select class="member-race w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Not specified" selected>Not specified</option>
+                                <option value="European / White">European / White</option>
+                                <option value="Black / African">Black / African</option>
+                                <option value="South Asian">South Asian</option>
+                                <option value="East Asian">East Asian</option>
+                                <option value="Southeast Asian">Southeast Asian</option>
+                                <option value="Middle Eastern / North African">Middle Eastern / North African</option>
+                                <option value="Hispanic / Latino">Hispanic / Latino</option>
+                                <option value="Mixed / Multiracial">Mixed / Multiracial</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Origin</label>
+                            <select class="member-origin w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <optgroup label="Italy">
+                                    <option value="Not specified" selected>Not specified</option>
+                                    <option value="Italy — South">Italy — South</option>
+                                    <option value="Italy — Central">Italy — Central</option>
+                                    <option value="Italy — North">Italy — North</option>
+                                </optgroup>
+                                <optgroup label="United Kingdom">
+                                    <option value="UK — England">UK — England</option>
+                                    <option value="UK — Scotland">UK — Scotland</option>
+                                    <option value="UK — Wales">UK — Wales</option>
+                                    <option value="UK — Northern Ireland">UK — Northern Ireland</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Eastern Europe">Eastern Europe</option>
+                                    <option value="Scandinavia">Scandinavia</option>
+                                    <option value="Other European">Other European</option>
+                                </optgroup>
+                                <optgroup label="Rest of World">
+                                    <option value="Middle East / North Africa">Middle East / North Africa</option>
+                                    <option value="Sub-Saharan Africa">Sub-Saharan Africa</option>
+                                    <option value="South Asia">South Asia</option>
+                                    <option value="East Asia">East Asia</option>
+                                    <option value="Southeast Asia">Southeast Asia</option>
+                                    <option value="Latin America">Latin America</option>
+                                    <option value="North America">North America</option>
+                                    <option value="Oceania">Oceania</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3 grid grid-cols-[160px_1fr] gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Risk Tolerance</label>
+                            <select class="member-risk-tolerance w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="High">🟢 High</option>
+                                <option value="Moderate">🟡 Moderate</option>
+                                <option value="Low" selected>🔴 Low</option>
+                                <option value="N/A">⬜ N/A</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Family Location</label>
+                            <input type="text" value="Manchester, UK" class="member-location w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Bristol, Italy">
+                        </div>
+                    </div>
+                </div>
+                <!-- Member 3 (child) -->
+                <div class="family-member border border-slate-200 rounded-xl p-4 mb-4 bg-slate-50/50" data-member-index="2">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-black text-slate-700">Member 3</span>
+                        <button onclick="removeFamilyMember(this)" class="text-slate-300 hover:text-red-500 transition-colors remove-btn" title="Remove member">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Name</label>
+                            <input type="text" value="Riley" class="member-name w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="Name">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Age</label>
+                            <input type="number" value="7" class="member-age w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Gender</label>
+                            <select class="member-gender w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Male">Male</option>
+                                <option value="Female" selected>Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Profession</label>
+                            <input type="text" value="Child" class="member-profession w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Race</label>
+                            <select class="member-race w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Not specified" selected>Not specified</option>
+                                <option value="European / White">European / White</option>
+                                <option value="Black / African">Black / African</option>
+                                <option value="South Asian">South Asian</option>
+                                <option value="East Asian">East Asian</option>
+                                <option value="Southeast Asian">Southeast Asian</option>
+                                <option value="Middle Eastern / North African">Middle Eastern / North African</option>
+                                <option value="Hispanic / Latino">Hispanic / Latino</option>
+                                <option value="Mixed / Multiracial">Mixed / Multiracial</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Origin</label>
+                            <select class="member-origin w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <optgroup label="Italy">
+                                    <option value="Not specified" selected>Not specified</option>
+                                    <option value="Italy — South">Italy — South</option>
+                                    <option value="Italy — Central">Italy — Central</option>
+                                    <option value="Italy — North">Italy — North</option>
+                                </optgroup>
+                                <optgroup label="United Kingdom">
+                                    <option value="UK — England">UK — England</option>
+                                    <option value="UK — Scotland">UK — Scotland</option>
+                                    <option value="UK — Wales">UK — Wales</option>
+                                    <option value="UK — Northern Ireland">UK — Northern Ireland</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Eastern Europe">Eastern Europe</option>
+                                    <option value="Scandinavia">Scandinavia</option>
+                                    <option value="Other European">Other European</option>
+                                </optgroup>
+                                <optgroup label="Rest of World">
+                                    <option value="Middle East / North Africa">Middle East / North Africa</option>
+                                    <option value="Sub-Saharan Africa">Sub-Saharan Africa</option>
+                                    <option value="South Asia">South Asia</option>
+                                    <option value="East Asia">East Asia</option>
+                                    <option value="Southeast Asia">Southeast Asia</option>
+                                    <option value="Latin America">Latin America</option>
+                                    <option value="North America">North America</option>
+                                    <option value="Oceania">Oceania</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3 grid grid-cols-[160px_1fr] gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Risk Tolerance</label>
+                            <select class="member-risk-tolerance w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="High">🟢 High</option>
+                                <option value="Moderate">🟡 Moderate</option>
+                                <option value="Low">🔴 Low</option>
+                                <option value="N/A" selected>⬜ N/A</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Family Location</label>
+                            <input type="text" value="Manchester, UK" class="member-location w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Bristol, Italy">
+                        </div>
+                    </div>
+                </div>
+                <!-- Member 4 (child) -->
+                <div class="family-member border border-slate-200 rounded-xl p-4 mb-4 bg-slate-50/50" data-member-index="3">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-black text-slate-700">Member 4</span>
+                        <button onclick="removeFamilyMember(this)" class="text-slate-300 hover:text-red-500 transition-colors remove-btn" title="Remove member">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Name</label>
+                            <input type="text" value="Casey" class="member-name w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="Name">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Age</label>
+                            <input type="number" value="4" class="member-age w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Gender</label>
+                            <select class="member-gender w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Profession</label>
+                            <input type="text" value="Child" class="member-profession w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Race</label>
+                            <select class="member-race w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="Not specified" selected>Not specified</option>
+                                <option value="European / White">European / White</option>
+                                <option value="Black / African">Black / African</option>
+                                <option value="South Asian">South Asian</option>
+                                <option value="East Asian">East Asian</option>
+                                <option value="Southeast Asian">Southeast Asian</option>
+                                <option value="Middle Eastern / North African">Middle Eastern / North African</option>
+                                <option value="Hispanic / Latino">Hispanic / Latino</option>
+                                <option value="Mixed / Multiracial">Mixed / Multiracial</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Origin</label>
+                            <select class="member-origin w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <optgroup label="Italy">
+                                    <option value="Not specified" selected>Not specified</option>
+                                    <option value="Italy — South">Italy — South</option>
+                                    <option value="Italy — Central">Italy — Central</option>
+                                    <option value="Italy — North">Italy — North</option>
+                                </optgroup>
+                                <optgroup label="United Kingdom">
+                                    <option value="UK — England">UK — England</option>
+                                    <option value="UK — Scotland">UK — Scotland</option>
+                                    <option value="UK — Wales">UK — Wales</option>
+                                    <option value="UK — Northern Ireland">UK — Northern Ireland</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Eastern Europe">Eastern Europe</option>
+                                    <option value="Scandinavia">Scandinavia</option>
+                                    <option value="Other European">Other European</option>
+                                </optgroup>
+                                <optgroup label="Rest of World">
+                                    <option value="Middle East / North Africa">Middle East / North Africa</option>
+                                    <option value="Sub-Saharan Africa">Sub-Saharan Africa</option>
+                                    <option value="South Asia">South Asia</option>
+                                    <option value="East Asia">East Asia</option>
+                                    <option value="Southeast Asia">Southeast Asia</option>
+                                    <option value="Latin America">Latin America</option>
+                                    <option value="North America">North America</option>
+                                    <option value="Oceania">Oceania</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3 grid grid-cols-[160px_1fr] gap-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Risk Tolerance</label>
+                            <select class="member-risk-tolerance w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all">
+                                <option value="High">🟢 High</option>
+                                <option value="Moderate">🟡 Moderate</option>
+                                <option value="Low">🔴 Low</option>
+                                <option value="N/A" selected>⬜ N/A</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Family Location</label>
+                            <input type="text" value="Manchester, UK" class="member-location w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:border-rose-400 transition-all" placeholder="e.g. Bristol, Italy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="addFamilyMember()" class="w-full border-2 border-dashed border-slate-200 hover:border-rose-300 rounded-xl py-3 text-sm font-bold text-slate-400 hover:text-rose-500 transition-all flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                Add Family Member
+            </button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Scoring Methodology
+             ═══════════════════════════════════════════════════ -->
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-lg">📐</div>
+            <div>
+                <h2 class="text-2xl font-black tracking-tight">Scoring Methodology</h2>
+                <p class="text-xs text-slate-400 font-medium">How quantitative and qualitative data combine into a final score</p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border border-slate-200 mb-12">
+            <div class="text-sm text-slate-600 leading-relaxed space-y-3">
+                <p>The AI report combines <strong>quantitative</strong> (financial) and <strong>qualitative</strong> (lifestyle) data using your importance weights to produce a holistic family score per city.</p>
+
+                <div class="bg-slate-50 rounded-xl p-4 font-mono text-xs text-slate-700 space-y-2">
+                    <div class="flex items-center justify-between gap-4 flex-wrap">
+                        <p class="font-bold text-slate-800 font-sans text-sm mb-0">Formula</p>
+                        <div class="flex items-center gap-2 bg-white rounded-lg border border-slate-200 px-3 py-1.5">
+                            <label class="text-[10px] font-bold text-blue-700 font-sans uppercase">📊</label>
+                            <input type="range" min="10" max="90" value="40" step="5" id="scoringWeightQuant" class="w-24 accent-blue-600" oninput="updateWeightDisplay()">
+                            <span id="scoringWeightQuantLabel" class="text-[10px] font-black text-blue-600 w-7 font-sans">40%</span>
+                            <span class="text-slate-300">|</span>
+                            <label class="text-[10px] font-bold text-amber-700 font-sans uppercase">✨</label>
+                            <span id="scoringWeightQualLabel" class="text-[10px] font-black text-amber-600 w-7 font-sans">60%</span>
+                        </div>
+                    </div>
+                    <p><strong>City Score</strong> = <span id="formulaQuantPct" class="text-blue-600 font-black">0.4</span> × Quantitative + <span id="formulaQualPct" class="text-amber-600 font-black">0.6</span> × Qualitative + Personal Fit</p>
+                    <hr class="border-slate-200">
+                    <p><strong>Quantitative Score</strong> — based on net savings, savings rate, and income-to-expense ratio. Cities with negative savings are capped at 5/10.</p>
+                    <p><strong>Qualitative Score</strong> — weighted average of all parameters:</p>
+                    <p class="ml-4">Score = Σ(rating<sub>i</sub> × importance<sub>i</sub>) / Σ(importance<sub>i</sub>)</p>
+                    <p class="ml-4 text-slate-500">where rating maps: ✅ Top = 10, ⚠️ Medium = 6, ➖ Low = 3, ❌ Critical = 1</p>
+                    <p class="ml-4 text-slate-500">and importance<sub>i</sub> is your weight (1–5) for each parameter</p>
+                    <p><strong>Personal Fit</strong> — ±1 adjustment per member based on traits, priorities, and hobbies.</p>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-3 text-xs text-blue-700 border border-blue-100">
+                    <strong>💡 Tip:</strong> Set importance to 5 for deal-breaker factors and 1 for nice-to-haves. Drag the slider to adjust how much financial vs lifestyle factors matter.
+                </div>
+
+                <p class="text-[11px] text-slate-400">The AI uses this framework as a guideline. Final scores also incorporate cross-parameter interactions and long-term trajectory analysis.</p>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Quantitative Analysis
+             ═══════════════════════════════════════════════════ -->
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13h2v8H3zM9 9h2v12H9zM15 5h2v16h-2zM21 1h2v20h-2z"/></svg>
+            </div>
+            <div>
+                <h2 class="text-2xl font-black tracking-tight">Quantitative Analysis</h2>
+                <p class="text-xs text-slate-400 font-medium">Economic data and numerical projections</p>
+            </div>
+        </div>
+
+        <div class="card overflow-x-auto mb-8 shadow-xl border-none">
+            <div class="flex justify-between items-center mb-6 px-2">
+                <h3 class="text-lg font-bold">1. Monthly Data Entry</h3>
+            </div>
+
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b-2 border-slate-200">
+                        <th class="w-32 text-left">Scenario</th>
+                        <th>Income 1</th>
+                        <th>Income 2</th>
+                        <th class="text-red-500">Rent + Bills</th>
+                        <th class="text-red-500">Childcare</th>
+                        <th class="text-red-500">Food</th>
+                        <th class="text-red-500">Transport</th>
+                        <th class="text-red-500">Other</th>
+                        <th class="bg-slate-50 text-slate-900 rounded-t-lg">Net Savings</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr class="border-b border-slate-100 hover:bg-blue-50/30 transition-colors" data-city="Manchester" data-currency="£">
+                        <td class="py-3 px-2 font-bold text-blue-700 text-center align-middle">Manchester</td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="3600" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="2400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="650" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="600" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="220" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="180" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg result">—</td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-emerald-50/30 transition-colors" data-city="Bologna" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-emerald-700 text-center align-middle">Bologna</td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="2400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1800" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1000" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="350" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="520" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="120" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="160" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg result">—</td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-amber-50/30 transition-colors" data-city="Florence Center" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-amber-700 text-center align-middle">Florence Center</td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="2400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1800" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1450" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="580" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="150" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="170" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg result">—</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 transition-colors" data-city="Florence Suburbs" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-slate-700 text-center align-middle">Florence Suburbs</td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="2400" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1800" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="1050" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="350" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="540" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="330" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input" type="text" inputmode="numeric" pattern="[0-9]*" value="180" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg result">—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Opportunity Cost of Family Support -->
+        <div class="card overflow-x-auto mb-8 shadow-xl border-none" id="familySupportCard">
+            <div class="flex justify-between items-center mb-6 px-2">
+                <h3 class="text-lg font-bold">2. Opportunity Cost of Family Support</h3>
+                <button onclick="document.getElementById('familySupportCard').remove(); if(typeof debouncedSave==='function') debouncedSave();" class="text-slate-300 hover:text-red-500 transition-colors" title="Remove this section">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 px-2">Estimate the hidden cost of being far from your family support network — grandparent childcare, emergency help, and travel to visit relatives.</p>
+
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b-2 border-slate-200">
+                        <th class="w-32 text-left">Scenario</th>
+                        <th>Visits to family / yr</th>
+                        <th>Avg cost / trip</th>
+                        <th class="text-red-500">Extra paid help / mo</th>
+                        <th class="bg-slate-50 text-slate-900 rounded-t-lg">Total opp. cost / mo</th>
+                    </tr>
+                </thead>
+                <tbody id="familySupportBody">
+                    <tr class="border-b border-slate-100 hover:bg-blue-50/30 transition-colors" data-city="Manchester" data-currency="£">
+                        <td class="py-3 px-2 font-bold text-blue-700 text-center align-middle">Manchester</td>
+                        <td class="px-1 text-center align-middle"><input class="num-input fs-visits" type="text" inputmode="numeric" pattern="[0-9]*" value="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input fs-cost" type="text" inputmode="numeric" pattern="[0-9]*" value="180" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol pound">£</span><input class="num-input fs-help" type="text" inputmode="numeric" pattern="[0-9]*" value="120" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg fs-result">—</td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-emerald-50/30 transition-colors" data-city="Bologna" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-emerald-700 text-center align-middle">Bologna</td>
+                        <td class="px-1 text-center align-middle"><input class="num-input fs-visits" type="text" inputmode="numeric" pattern="[0-9]*" value="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-cost" type="text" inputmode="numeric" pattern="[0-9]*" value="40" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-help" type="text" inputmode="numeric" pattern="[0-9]*" value="60" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg fs-result">—</td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-amber-50/30 transition-colors" data-city="Florence Center" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-amber-700 text-center align-middle">Florence Center</td>
+                        <td class="px-1 text-center align-middle"><input class="num-input fs-visits" type="text" inputmode="numeric" pattern="[0-9]*" value="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-cost" type="text" inputmode="numeric" pattern="[0-9]*" value="60" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-help" type="text" inputmode="numeric" pattern="[0-9]*" value="80" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg fs-result">—</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 transition-colors" data-city="Florence Suburbs" data-currency="€">
+                        <td class="py-3 px-2 font-bold text-slate-700 text-center align-middle">Florence Suburbs</td>
+                        <td class="px-1 text-center align-middle"><input class="num-input fs-visits" type="text" inputmode="numeric" pattern="[0-9]*" value="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-cost" type="text" inputmode="numeric" pattern="[0-9]*" value="60" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="px-1 text-center align-middle"><div class="currency-wrap"><span class="currency-symbol euro">€</span><input class="num-input fs-help" type="text" inputmode="numeric" pattern="[0-9]*" value="80" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></td>
+                        <td class="py-3 px-2 bg-slate-50 font-black text-center align-middle text-lg fs-result">—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- ═══════════════════════════════════════════════════
+             ═══════════════════════════════════════════════════ -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div class="card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold flex items-center gap-2">
+                        <span class="w-2 h-6 bg-blue-600 rounded-full"></span> Net Savings Comparison
+                    </h3>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Periodo</label>
+                        <select id="periodSelect" onchange="onPeriodChange()" class="text-xs font-bold border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all cursor-pointer">
+                            <option value="1">Mese</option>
+                            <option value="12" selected>Anno (×12)</option>
+                        </select>
+                        <span class="w-px h-5 bg-slate-200"></span>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Valuta</label>
+                        <select id="currencySelect" onchange="onCurrencyChange()" class="text-xs font-bold border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all cursor-pointer">
+                            <option value="EUR" selected>€ EUR</option>
+                            <option value="GBP">£ GBP</option>
+                            <option value="USD">$ USD</option>
+                            <option value="CHF">CHF</option>
+                        </select>
+                        <span id="rateInfo" class="text-[9px] text-slate-400 font-medium hidden"></span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="canvasRisparmio" role="img" aria-label="Net savings by city in the selected period and currency">Net savings by city in the selected period and currency. The input tables provide the underlying values.</canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-emerald-600 rounded-full"></span> Expense Breakdown
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-blue-700 mb-1">🇬🇧 Manchester</p>
+                        <div style="position:relative;height:180px;"><canvas id="canvasComp0" role="img" aria-label="Expense breakdown and remaining savings in Manchester">Expense breakdown and remaining savings in Manchester. The input tables provide the underlying values.</canvas></div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-emerald-700 mb-1">🇮🇹 Bologna</p>
+                        <div style="position:relative;height:180px;"><canvas id="canvasComp1" role="img" aria-label="Expense breakdown and remaining savings in Bologna">Expense breakdown and remaining savings in Bologna. The input tables provide the underlying values.</canvas></div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-amber-700 mb-1">🇮🇹 Florence Center</p>
+                        <div style="position:relative;height:180px;"><canvas id="canvasComp2" role="img" aria-label="Expense breakdown and remaining savings in Florence Center">Expense breakdown and remaining savings in Florence Center. The input tables provide the underlying values.</canvas></div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-slate-700 mb-1">🇮🇹 Florence Suburbs</p>
+                        <div style="position:relative;height:180px;"><canvas id="canvasComp3" role="img" aria-label="Expense breakdown and remaining savings in Florence Suburbs">Expense breakdown and remaining savings in Florence Suburbs. The input tables provide the underlying values.</canvas></div>
+                    </div>
+                </div>
+                <div class="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2">
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#334155"></span>Rent</span>
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#ef4444"></span>Childcare</span>
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#f59e0b"></span>Food</span>
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#10b981"></span>Transport</span>
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#6366f1"></span>Other</span>
+                    <span class="flex items-center gap-1.5 text-sm font-semibold text-slate-600"><span class="w-3.5 h-3.5 rounded-sm inline-block" style="background:#2563eb"></span>Savings</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Net Worth Projection
+             ═══════════════════════════════════════════════════ -->
+        <div class="card mb-12">
+            <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <span class="w-2 h-6 bg-violet-600 rounded-full"></span> Cumulative Savings Projection
+                </h3>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Timespan</label>
+                    <select id="projectionYearsSelect" onchange="updateNetWorthProjection()" class="text-xs font-bold border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400 transition-all cursor-pointer">
+                    </select>
+                    <span class="text-[10px] text-slate-400 font-medium">years</span>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Monthly savings × 12 × years. No starting assets, inflation, investment growth, or family-support adjustment is included.</p>
+            <div style="position:relative;height:360px;">
+                <canvas id="canvasNetWorth" role="img" aria-label="Cumulative savings projection by city, without investment growth">Cumulative savings projection by city, without investment growth. The input tables provide the underlying values.</canvas>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Qualitative Analysis
+             ═══════════════════════════════════════════════════ -->
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-amber-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 7.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            </div>
+            <div>
+                <h2 class="text-2xl font-black tracking-tight">Qualitative Analysis</h2>
+                <p class="text-xs text-slate-400 font-medium">Non-monetary factors comparison</p>
+                <p class="text-[11px] text-slate-400/70 mt-1">All ratings and descriptions are editable — click any field to adjust it to your needs</p>
+            </div>
+        </div>
+
+    <div id="qualitativeTable" class="card overflow-x-auto mb-4 shadow-xl border-none">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="border-b-2 border-slate-200">
+                        <th class="w-48 text-left py-4 px-3 text-xs font-black text-slate-400 uppercase tracking-wide">Parameter</th>
+                        <th class="py-4 px-3 text-xs font-black text-blue-600 uppercase tracking-wide">🇬🇧 Manchester</th>
+                        <th class="py-4 px-3 text-xs font-black text-emerald-600 uppercase tracking-wide">🇮🇹 Bologna</th>
+                        <th class="py-4 px-3 text-xs font-black text-amber-600 uppercase tracking-wide">🇮🇹 Florence Center</th>
+                        <th class="py-4 px-3 text-xs font-black text-slate-500 uppercase tracking-wide">🇮🇹 Florence Suburbs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🌟</span>Quality of Life</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">World-class cultural scene but high stress, long commutes, and relentless cost of living.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Relaxed pace, walkable city, strong family-oriented lifestyle, excellent work-life balance.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Beautiful and vibrant but chaotic daily life, stressful traffic, bureaucratic friction.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">➖ Low</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Quieter and greener but car-dependent, fewer amenities, limited cultural and social life.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🎓</span>School & Education</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Pre-school very expensive. State schools depend on area. Natural bilingualism.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Solid public schools, university city, excellent home-to-school logistics.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Plenty of elite private options, but public facilities often dated and traffic-heavy logistics.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">➖ Low</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Less crowded local schools but fewer extracurricular services within walking distance.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🛡️</span>Safety</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Variable: safe residential areas vs rising urban petty crime.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Very high. Walkable/bikeable city safe at all hours for families.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Sense of chaos; car theft and urban decay in some central/connected areas.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Quieter residential neighborhoods but isolated. Car vigilance needed.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🚀</span>Future Prospects</td>
+                        <td class="py-4 px-3 bg-blue-50/40">
+                            <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">🏆 Top</span>
+                            <p class="text-[11px] text-blue-700 leading-relaxed mt-2 font-medium">Maximum wealth growth. Hyper-dynamic job market.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Long-term stability but risk of salary stagnation "glass ceiling".</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">➖ Low</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Difficult vertical growth without strong political-social network.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-400 leading-relaxed mt-2 italic">Same as Florence Center, but with time erosion for kids due to traffic.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🏥</span>Healthcare</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">NHS collapsing. Endless waiting lists. Private healthcare unaffordable.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">European standard. High-level prevention and pediatrics.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Centers of excellence but slow bureaucratic management.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Far from major hospitals and centers of excellence in emergencies.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">👨‍👩‍👦</span>Family Support</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">2+ hour flight from family in Southern Italy. No grandparent childcare or emergency help. High isolation cost for a family-oriented culture. Visits require expensive flights and annual leave.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">3-4 hour train to Southern Italy. Grandparents can visit for weekends but not daily help. Some logistical friction, though doable for holidays and emergencies.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Close to Southern Italian family network. Grandparents can visit frequently or relocate nearby. Daily family support is realistic. Strong emotional safety net.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Same proximity as Florence Center. Grandparents can provide daily childcare support. Strong family presence reduces isolation and childcare costs.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">☀️</span>Weather</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">❌ Critical</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Perpetually grey, frequent rain, long dark winters. Low vitamin D for kids.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Foggy humid winters, hot summers. Pleasant spring and autumn.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Mild Mediterranean climate, 300+ sunny days, short mild winters.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Same as Florence Center, with more greenery and cleaner air.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🍕</span>Food</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Great multicultural variety but average daily quality, expensive eating out.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Exceptional local cuisine, fresh markets, affordable restaurants, Veneto food tradition.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">World-class food scene, endless trattorias, street food, Roman culinary tradition.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Good home cooking culture but far fewer restaurants and markets nearby.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🤝</span>Integration</td>
+                        <td class="py-4 px-3 bg-blue-50/40">
+                            <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">🏆 Top</span>
+                            <p class="text-[11px] text-blue-700 leading-relaxed mt-2 font-medium">Cosmopolitan city, established Italian community, natural multicultural integration.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Close-knit social fabric, hard to enter local circles without family network.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Chaotic but welcoming city, tough bureaucracy for those returning from abroad.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">➖ Low</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Insular neighborhood communities, isolation risk without pre-existing local network.</p>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🚫</span>Discrimination</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">⚠️ Medium</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">General xenophobia exists but Italians are well-regarded. Accent/origin rarely an issue.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Good</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">University city that attracts many foreigners and people from southern Italy. Multicultural and open-minded environment.</p>
+                        </td>
+                        <td class="py-4 px-3 bg-emerald-50/40">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-emerald-700 leading-relaxed mt-2 font-medium">Massive Southern diaspora, very welcoming to meridionali. Feels like home.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">✅ Top</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Same as Florence Center — large Southern community, no stigma attached to origins.</p>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 transition-colors">
+                        <td class="py-4 px-3 font-bold text-sm text-slate-700"><span class="mr-1.5">🏛️</span>Political Orientation</td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">Progressive</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Labour stronghold. Socially liberal, multicultural policies, strong welfare state focus. Currently governed by a Labour mayor.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">Centre-Left</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">University city with a centre-left leaning. Progressive and open-minded despite the Veneto region traditionally voting centre-right (Lega). The city itself is a liberal enclave.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">Centre-Left</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Historically left-wing city governed by PD (centre-left). Progressive policies, strong civic engagement, pro-immigration stance.</p>
+                        </td>
+                        <td class="py-4 px-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">Mixed</span>
+                            <p class="text-[11px] text-slate-500 leading-relaxed mt-2">Suburban areas swing between centre-right (FdI, Forza Italia) and centre-left. More conservative than central Florence, varies significantly by municipality.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="flex justify-center mb-6">
+            <button onclick="addQualitativeRow()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-xl transition-all hover:scale-105 active:scale-95 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add Parameter
+            </button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: AI Report
+             ═══════════════════════════════════════════════════ -->
+        <div class="flex items-center gap-3 mb-6 mt-12">
+            <div class="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center text-white font-black text-lg">🤖</div>
+            <div>
+                <h2 class="text-2xl font-black tracking-tight">AI Report</h2>
+                <p class="text-xs text-slate-400 font-medium">Analyze your data with Gemini AI and generate a full report</p>
+            </div>
+        </div>
+
+        <div class="card shadow-xl border-none mb-8">
+            <div class="flex flex-col gap-4 mb-4">
+                <div class="flex flex-col sm:flex-row gap-4 items-end">
+                    <div class="flex-1">
+                        <p class="text-sm text-slate-500">Click to analyze your data with Gemini AI and generate a full report.</p>
+                    </div>
+                    <button id="generateReportBtn" onclick="generateReport()" class="generate-btn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Generate Report
+                    </button>
+                </div>
+                <div id="apiKeySection" class="hidden">
+                    <label for="geminiApiKey" class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Gemini API Key</label>
+                    <input id="geminiApiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your own Gemini API key"
+                           class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400 transition-all">
+                    <p class="text-[10px] text-slate-400 mt-1">Get a free key from <a href="https://aistudio.google.com/apikey" target="_blank" class="underline hover:text-violet-600">Google AI Studio</a>, then paste it here. The key stays in memory for this page and is sent only to Google when you request a report.</p>
+                </div>
+                <div id="llmStatus" class="hidden text-sm text-slate-500 flex items-center gap-2"></div>
+                <div id="llmError" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700"></div>
+            </div>
+
+            <div id="reportContainer" class="hidden">
+            </div>
+
+            <div id="promptStatsContainer" class="hidden border-t border-dashed border-slate-200 mt-6 pt-4">
+            </div>
+
+            <details class="mt-4">
+                <summary class="text-[10px] font-bold text-slate-400 uppercase tracking-wide cursor-pointer select-none">Manual prompt (copy & paste)</summary>
+                <div class="mt-3 flex flex-col sm:flex-row gap-4 items-center">
+                    <div class="flex-1">
+                        <p class="text-sm text-slate-500">Build a prompt from your data and paste it into any LLM — no API key needed.</p>
+                    </div>
+                    <button id="generatePromptBtn" onclick="generatePrompt()" class="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded-xl font-bold text-sm transition-all active:scale-95 flex items-center gap-2">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Generate & Copy Prompt
+                    </button>
+                </div>
+                <div id="promptOutput" class="hidden mt-3">
+                    <div class="border-t border-slate-100 pt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Generated Prompt</span>
+                            <button onclick="copyPrompt()" id="copyBtn" class="text-xs font-bold text-violet-600 hover:text-violet-800 flex items-center gap-1 transition-colors">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                Copy again
+                            </button>
+                        </div>
+                        <textarea id="promptTextarea" readonly class="w-full h-64 bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs font-mono text-slate-700 leading-relaxed resize-y focus:outline-none"></textarea>
+                        <p class="text-[10px] text-slate-400 mt-2 text-center">Paste this into <a href="https://chatgpt.com" target="_blank" class="underline hover:text-violet-600">ChatGPT</a>, <a href="https://gemini.google.com" target="_blank" class="underline hover:text-violet-600">Gemini</a>, <a href="https://claude.ai" target="_blank" class="underline hover:text-violet-600">Claude</a>, or any other LLM.</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             SECTION: Example AI Report (injected by js/example-report.js)
+             ═══════════════════════════════════════════════════ -->
+        <details class="mb-8">
+            <summary class="flex items-center gap-3 mb-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none group">
+                <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-xl flex items-center justify-center text-white font-black text-lg">📋</div>
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight">Example AI Report</h2>
+                    <p class="text-xs text-slate-400 font-medium">Fictional sample report — no API key needed; click to expand</p>
+                </div>
+                <svg class="w-5 h-5 text-slate-400 transition-transform group-open:rotate-90 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </summary>
+
+            <div class="card shadow-xl border-none" id="exampleReportContainer">
+            </div>
+        </details>
+
+        <footer class="mt-12 text-center text-slate-400 text-[10px] uppercase font-bold tracking-widest">
+            Quantitative vs Qualitative Analysis • Simulated Data • 2026
+        </footer>
+    </div>
+
+    <!-- Chart.js: moved from <head> to body to prevent render-blocking -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- JavaScript Components (loaded in dependency order) -->
+    <script src="js/currency.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/family.js"></script>
+    <script src="js/qualitative.js"></script>
+    <script src="js/prompt.js"></script>
+    <script src="js/report.js"></script>
+    <script src="js/llm.js"></script>
+    <script src="js/example-report.js"></script>
+    <script src="js/cache.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

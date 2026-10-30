@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Original Example AI Report — Moving Trade-offs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>@media print { .report-navigation { display: none; } body { background: white; } }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+<main class="max-w-[1200px] mx-auto px-4 py-8">
+    <nav class="report-navigation flex flex-wrap items-center justify-between gap-4 mb-8">
+        <a href="./" class="font-bold text-blue-700 underline">← Interactive explorer</a>
+        <button type="button" id="print-report" class="bg-slate-700 text-white rounded-lg px-4 py-2">Print / save as PDF</button>
+    </nav>
+    <h1 class="text-3xl font-black mb-6">Original Example AI Report · UK vs IT</h1>
+<!-- ORIGINAL REPORT START -->
+<!-- Example AI Report — loaded into index.html via fetch -->
+<div class="bg-gradient-to-r from-violet-50 to-fuchsia-50 border border-violet-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+    <span class="text-lg">💡</span>
+    <p class="text-xs text-violet-700 leading-relaxed"><strong>This is a static example.</strong> The actual AI report will vary based on the LLM you use and the data you enter. Generate your own prompt above and paste it into ChatGPT, Gemini, or Claude for a personalised analysis.</p>
+</div>
+
+<!-- 1. Numbers Summary -->
+<div class="mb-8">
+    <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+        <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-sm font-black">1</span>
+        Numbers Summary
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+            <p class="text-[10px] font-bold text-blue-400 uppercase tracking-wide mb-1">🇬🇧 London</p>
+            <p class="text-2xl font-black text-blue-700">£3,900<span class="text-xs font-bold text-blue-400">/mo</span></p>
+            <p class="text-[11px] text-blue-500 mt-1">£46,800/year • 47.6% savings rate</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+            <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wide mb-1">🇮🇹 Padova</p>
+            <p class="text-2xl font-black text-emerald-700">€1,500<span class="text-xs font-bold text-emerald-400">/mo</span></p>
+            <p class="text-[11px] text-emerald-500 mt-1">€18,000/year • 34.5% savings rate</p>
+        </div>
+        <div class="bg-amber-50 rounded-xl p-4 border border-amber-100">
+            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wide mb-1">🇮🇹 Rome Center</p>
+            <p class="text-2xl font-black text-amber-700">€700<span class="text-xs font-bold text-amber-400">/mo</span></p>
+            <p class="text-[11px] text-amber-500 mt-1">€8,400/year • 16.1% savings rate</p>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">🇮🇹 Rome Suburbs</p>
+            <p class="text-2xl font-black text-slate-700">€1,300<span class="text-xs font-bold text-slate-400">/mo</span></p>
+            <p class="text-[11px] text-slate-500 mt-1">€15,600/year • 29.9% savings rate</p>
+        </div>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4 text-sm text-slate-600 leading-relaxed">
+        <p class="mb-2"><strong>Key observations:</strong> London dominates economically with <strong>£3,900/mo</strong> in net savings — roughly <strong>2.6× Padova</strong> and <strong>5.6× Rome Center</strong> when converted to the same currency (at ~€1.17/£). The biggest expense differentiator is <strong>childcare</strong>: £1,500 in London vs €600 in Padova (60% lower). Rent also drops significantly: London's £1,500 vs Padova's €1,100 (27% less). However, Italian total household income (€4,350) is <strong>47% lower</strong> than London's (£8,200 ≈ €9,600), which is the primary driver of the savings gap.</p>
+        <p><strong>Rome Center</strong> is the weakest scenario: rent is nearly as high as London (€1,600) but income is Italian-level, leaving only €700/mo — a dangerously thin buffer for a family of four.</p>
+    </div>
+</div>
+
+<!-- 2. Quant-Qual Cross-Analysis -->
+<div class="mb-8">
+    <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+        <span class="w-7 h-7 bg-emerald-100 text-emerald-700 rounded-lg flex items-center justify-center text-sm font-black">2</span>
+        Quant-Qual Cross-Analysis
+    </h3>
+    <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
+        <div class="bg-blue-50/50 rounded-xl p-4 border-l-4 border-blue-400">
+            <p class="font-bold text-blue-800 mb-1">🇬🇧 London — "High earnings, high friction"</p>
+            <p>The financial advantage is undeniable, but the qualitative picture reveals a harsh reality: the NHS is collapsing (❌), weather is grey and depressing (❌), and the cost of living creates a treadmill effect. Alberto's need for sunshine for mental health directly clashes with London's 1,500 hours of annual sunlight (vs Rome's 2,500+). His wife's extroversion and need for community may thrive in London's multicultural environment, but her closeness to parents suffers enormously. The children benefit from natural bilingualism but childcare costs eat £1,500/mo — and quality varies wildly by postcode.</p>
+        </div>
+        <div class="bg-emerald-50/50 rounded-xl p-4 border-l-4 border-emerald-400">
+            <p class="font-bold text-emerald-800 mb-1">🇮🇹 Padova — "The balanced sweet spot"</p>
+            <p>Despite saving €2,400/mo less than London, Padova scores ✅ Top in 5 out of 10 qualitative parameters (quality of life, schools, safety, healthcare, food). For Alberto's introverted personality, a calm walkable city is ideal. For his wife, the proximity to family (both from southern Italy — easy train to Rome/Naples) and the community-oriented culture match her traits perfectly. Childcare at €600/mo frees up budget, and the university-city vibe offers multicultural exposure. The main risk: career stagnation for Alberto (salary glass ceiling in Italy's tech scene).</p>
+        </div>
+        <div class="bg-amber-50/50 rounded-xl p-4 border-l-4 border-amber-400">
+            <p class="font-bold text-amber-800 mb-1">🇮🇹 Rome Center — "Beautiful but unsustainable"</p>
+            <p>Only €700/mo savings is precarious for a young family. Rent at €1,600 is near-London levels without London salaries. Safety is ❌ Critical, and the chaotic daily life contradicts Alberto's need for analytical calm. However, the weather is ✅ Top for mental health, and the southern Italian diaspora means zero discrimination for the family. Rome's food scene and cultural richness are unmatched — but these benefits don't compensate for the financial squeeze.</p>
+        </div>
+        <div class="bg-slate-100/80 rounded-xl p-4 border-l-4 border-slate-400">
+            <p class="font-bold text-slate-800 mb-1">🇮🇹 Rome Suburbs — "Quiet but isolated"</p>
+            <p>Saves €600/mo more than Rome Center, mostly from rent (€1,000 vs €1,600). But the qualitative trade-offs are severe: car-dependence (transport jumps to €500), low quality of life, critical healthcare access, and isolation risk. For the wife's extroverted personality and need for community, suburban isolation could be detrimental. The children lose walkable amenities and extracurricular options.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Qualitative-to-Person Mapping -->
+<div class="mb-8">
+    <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+        <span class="w-7 h-7 bg-violet-100 text-violet-700 rounded-lg flex items-center justify-center text-sm font-black">3</span>
+        Qualitative-to-Person Mapping
+    </h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-[11px] border-collapse">
+            <thead>
+                <tr class="border-b-2 border-slate-200">
+                    <th class="text-left py-3 px-2 text-[10px] font-black text-slate-400 uppercase w-36">Parameter</th>
+                    <th class="py-3 px-2 text-[10px] font-black text-blue-600 uppercase">🇬🇧 London</th>
+                    <th class="py-3 px-2 text-[10px] font-black text-emerald-600 uppercase">🇮🇹 Padova</th>
+                    <th class="py-3 px-2 text-[10px] font-black text-amber-600 uppercase">🇮🇹 Rome Center</th>
+                    <th class="py-3 px-2 text-[10px] font-black text-slate-500 uppercase">🇮🇹 Rome Suburbs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🌟 Quality of Life</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: High stress, long commutes erode his introvert energy<br>
+                        👩 Martina: World-class cultural scene but <span class="text-amber-600 font-semibold">relentless pace</span> conflicts with nurturing lifestyle<br>
+                        👧 Sofia: Limited outdoor space, park access requires transit<br>
+                        👶 Marco: Urban noise and pollution not ideal for infant development
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: <span class="text-emerald-700 font-semibold">Ideal</span> — walkable, calm, matches introverted temperament<br>
+                        👩 Martina: Family-oriented pace, strong community, can nurture at her rhythm<br>
+                        👧 Sofia: Safe streets, parks within walking distance, playgrounds everywhere<br>
+                        👶 Marco: Clean air, quiet environment, ideal for early development
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Beautiful but <span class="text-amber-600 font-semibold">chaotic</span> — daily friction clashes with analytical temperament<br>
+                        👩 Martina: Vibrant social life but stressful logistics with two small kids<br>
+                        👧 Sofia: Rich stimulation but traffic danger and constant supervision needed<br>
+                        👶 Marco: Air quality concerns in central areas
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Quiet but <span class="text-red-600 font-semibold">car-dependent monotony</span> — risks apathy<br>
+                        👩 Martina: Isolated — few amenities, limited social life for extrovert<br>
+                        👧 Sofia: Green space but fewer peers and activities nearby<br>
+                        👶 Marco: Cleaner air but limited infant services
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🎓 School & Education</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧 Sofia: Natural bilingualism (English/Italian at home) — <span class="text-blue-600 font-semibold">major advantage</span><br>
+                        👶 Marco: Same bilingual benefit when older<br>
+                        🧔👩 Parents: Childcare cost £1,500/mo is a heavy burden
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        👧 Sofia: Excellent public pre-schools, walkable<br>
+                        👶 Marco: Affordable nurseries (€300/child)<br>
+                        🧔👩 Parents: University city culture benefits kids long-term
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧 Sofia: Good private options, expensive<br>
+                        👶 Marco: Waitlists for public nurseries<br>
+                        🧔👩 Parents: Traffic-heavy school runs add daily stress
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧 Sofia: Fewer extracurricular options<br>
+                        👶 Marco: Limited choice of nurseries<br>
+                        🧔👩 Parents: Must drive everywhere for kids' activities
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🛡️ Safety</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧👶 Children: Safe in good neighborhoods, but area-dependent<br>
+                        👩 Martina: Urban alertness required, especially evenings<br>
+                        🧔 Alberto: Manageable — tech hubs are in safe zones
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        👧👶 Children: <span class="text-emerald-700 font-semibold">Safest option</span> — can play outside freely<br>
+                        👩 Martina: Walks alone safely at any hour<br>
+                        🧔 Alberto: Bike commute is safe and pleasant
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧👶 Children: Must supervise constantly in public<br>
+                        👩 Martina: Pickpocket/scooter theft risk<br>
+                        🧔 Alberto: <span class="text-red-600 font-semibold">Car theft common</span> — adds stress
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👧👶 Children: Quiet but isolated after dark<br>
+                        👩 Martina: Feels safe but limited street life<br>
+                        🧔 Alberto: Car vigilance needed
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🚀 Future Prospects</td>
+                    <td class="py-3 px-2 text-blue-700 font-medium bg-blue-50/30">
+                        🧔 Alberto: <span class="text-blue-700 font-semibold">Maximum career growth</span> — hyper-dynamic tech market, salary £120k+ by 44<br>
+                        👩 Martina: Strong teacher demand, good pension, but wages plateau fast<br>
+                        👧 Sofia: World-class university pipeline (Oxbridge, Imperial, UCL)<br>
+                        👶 Marco: Best long-term wealth accumulation for the family
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Stable but <span class="text-amber-600 font-semibold">salary glass ceiling</span> — Italian tech tops out at €45-50k<br>
+                        👩 Martina: Solid public teaching career, excellent pension system<br>
+                        👧 Sofia: Good university (Padova is top-tier in Italy) but limited international scope<br>
+                        👶 Marco: Comfortable middle-class trajectory, lower wealth ceiling
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Difficult vertical growth without political-social network<br>
+                        👩 Martina: High competition for teaching positions in Rome<br>
+                        👧 Sofia: Many school options but quality varies wildly<br>
+                        👶 Marco: <span class="text-red-600 font-semibold">Limited upward mobility</span> for the family long-term
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Same as Rome Center, plus commute time erosion<br>
+                        👩 Martina: Fewer schools = fewer teaching openings<br>
+                        👧 Sofia: Must commute into city for any serious extracurricular<br>
+                        👶 Marco: Suburban stagnation risk
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🏥 Healthcare</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Long waits for any specialist<br>
+                        👩 Martina: Postnatal support scarce on NHS<br>
+                        👧 Sofia: Pediatric waits 6-12 weeks<br>
+                        👶 Marco: <span class="text-red-600 font-semibold">Critical</span> — infant needs fast access
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: Excellent local hospitals<br>
+                        👩 Martina: Strong preventive care system<br>
+                        👧 Sofia: Top pediatric services<br>
+                        👶 Marco: <span class="text-emerald-700 font-semibold">Best option</span> — rapid infant care access
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Good specialist access, slow bureaucracy<br>
+                        👩 Martina: Centers of excellence nearby<br>
+                        👧 Sofia: Adequate pediatrics<br>
+                        👶 Marco: Decent but slow ER response
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Far from major hospitals<br>
+                        👩 Martina: Limited nearby options<br>
+                        👧 Sofia: Must drive for pediatrician<br>
+                        👶 Marco: <span class="text-red-600 font-semibold">Risk</span> — emergency distance is concerning
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">☀️ Weather</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: <span class="text-red-600 font-semibold">Critical</span> — needs sunshine for mental health<br>
+                        👩 Martina: Negative — cooking/outdoor life limited<br>
+                        👧 Sofia: Low vitamin D, less outdoor play<br>
+                        👶 Marco: Less natural light exposure
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Mixed — foggy winters may still affect mood<br>
+                        👩 Martina: OK — good spring/autumn for family outings<br>
+                        👧 Sofia: Good outdoor conditions most of year<br>
+                        👶 Marco: Adequate sun exposure
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: <span class="text-emerald-700 font-semibold">Ideal</span> — 300+ sunny days, direct mental health boost<br>
+                        👩 Martina: Thrives — outdoor markets, community life<br>
+                        👧 Sofia: Maximum outdoor play time<br>
+                        👶 Marco: Optimal vitamin D and fresh air
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: Excellent — same climate + cleaner air<br>
+                        👩 Martina: Good weather but fewer people around<br>
+                        👧 Sofia: Great outdoor space<br>
+                        👶 Marco: Best air quality of all options
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🍕 Food</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👩 Martina: Multicultural ingredients available, but <span class="text-amber-600 font-semibold">daily quality is average</span> — frustrating for someone who loves cooking<br>
+                        🧔 Alberto: Expensive eating out<br>
+                        👧👶 Children: Processed kids' food culture
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        👩 Martina: <span class="text-emerald-700 font-semibold">Paradise</span> — fresh markets, Veneto tradition, she can express her passion for cooking<br>
+                        🧔 Alberto: Affordable trattorias for family dinners<br>
+                        👧👶 Children: Best food quality for growing kids
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        👩 Martina: World-class food scene, Roman cuisine<br>
+                        🧔 Alberto: Street food culture, social dining<br>
+                        👧👶 Children: Excellent fresh produce access
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        👩 Martina: Good home cooking but <span class="text-amber-600 font-semibold">fewer markets nearby</span><br>
+                        🧔 Alberto: Must drive for restaurants<br>
+                        👧👶 Children: Adequate but less variety
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🤝 Integration</td>
+                    <td class="py-3 px-2 text-blue-700 font-medium bg-blue-50/30">
+                        🧔 Alberto: <span class="text-blue-700 font-semibold">Thrives in multicultural tech scene</span><br>
+                        👩 Martina: Strong Italian community, easy to find friends<br>
+                        👧👶 Children: Natural integration through school
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Introvert-friendly but tight social circles<br>
+                        👩 Martina: <span class="text-amber-600 font-semibold">May struggle</span> to enter established Veneto networks without family there<br>
+                        👧👶 Children: School integration is smooth
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Bureaucracy friction when returning from abroad<br>
+                        👩 Martina: Chaotic but welcoming — southern origins help<br>
+                        👧👶 Children: Easy integration, large southern community
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: <span class="text-red-600 font-semibold">Isolation risk</span> — introvert in suburban setting = potential loneliness<br>
+                        👩 Martina: Insular communities, hard to break in<br>
+                        👧👶 Children: Fewer peers in immediate area
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-3 px-2 font-bold text-slate-700">🚫 Discrimination</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Italian accent well-regarded in tech; no professional stigma<br>
+                        👩 Martina: Occasional stereotyping as "Mediterranean" but generally positive<br>
+                        👧 Sofia: Mixed-culture kids are the norm in London schools<br>
+                        👶 Marco: No issues — cosmopolitan city
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Southern Italian origin may trigger mild <span class="text-amber-600 font-semibold">"terrone" prejudice</span> in some Veneto circles<br>
+                        👩 Martina: Same — but university city is more open-minded than rural Veneto<br>
+                        👧 Sofia: Kids integrate easily regardless of origin<br>
+                        👶 Marco: No issues at infant age
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: <span class="text-emerald-700 font-semibold">Zero friction</span> — massive Southern diaspora, feels like home<br>
+                        👩 Martina: Completely at home — southern origins are the norm<br>
+                        👧 Sofia: Large southern community, many peers with same background<br>
+                        👶 Marco: No issues whatsoever
+                    </td>
+                    <td class="py-3 px-2 text-emerald-700 font-medium bg-emerald-50/30">
+                        🧔 Alberto: Same as Rome Center — large Southern community<br>
+                        👩 Martina: No stigma attached to origins<br>
+                        👧 Sofia: Accepted without question<br>
+                        👶 Marco: No issues
+                    </td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-2 font-bold text-slate-700">🏛️ Political Orientation</td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Progressive tech sector aligns with his analytical worldview<br>
+                        👩 Martina: Labour policies support teachers and families — <span class="text-blue-600 font-semibold">positive for her profession</span><br>
+                        👧👶 Children: Strong multicultural/anti-discrimination policies in schools
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Centre-left city within centre-right Veneto — comfortable bubble<br>
+                        👩 Martina: University-city progressiveness matches her social values<br>
+                        👧👶 Children: Good integration policies in public schools
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: Historically left-wing city — aligns with progressive values<br>
+                        👩 Martina: Strong civic engagement culture, pro-family policies<br>
+                        👧👶 Children: Progressive education policies
+                    </td>
+                    <td class="py-3 px-2 text-slate-600">
+                        🧔 Alberto: More conservative suburban areas — <span class="text-amber-600 font-semibold">potential cultural friction</span><br>
+                        👩 Martina: Mixed political leanings vary by municipality<br>
+                        👧👶 Children: Less diverse school environment
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 4. Recommendations -->
+<div class="mb-8">
+    <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+        <span class="w-7 h-7 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-sm font-black">4</span>
+        Recommendations
+    </h3>
+    <div class="space-y-3">
+        <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+            <span class="text-lg flex-shrink-0">✅</span>
+            <div>
+                <p class="font-bold text-emerald-800 text-sm">DO: Seriously consider Padova as the primary relocation target</p>
+                <p class="text-xs text-emerald-700 mt-1">It ranks ✅ Top in 5/10 qualitative categories and offers the best balance of savings (€1,500/mo), safety, healthcare, and food quality. The €2,400/mo savings gap vs London narrows significantly when accounting for childcare savings, lower stress, and better health outcomes.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+            <span class="text-lg flex-shrink-0">✅</span>
+            <div>
+                <p class="font-bold text-emerald-800 text-sm">DO: Negotiate a remote/hybrid UK salary if moving to Italy</p>
+                <p class="text-xs text-emerald-700 mt-1">As a Software Engineer, Alberto could potentially retain 60-80% of his London salary working remotely for a UK company. This would close the savings gap to nearly zero while gaining all of Italy's qualitative advantages.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-3 bg-red-50 rounded-xl p-4 border border-red-100">
+            <span class="text-lg flex-shrink-0">❌</span>
+            <div>
+                <p class="font-bold text-red-800 text-sm">DON'T: Move to Rome Center with current income levels</p>
+                <p class="text-xs text-red-700 mt-1">€700/mo savings for a family of four is dangerously thin. One unexpected expense (car repair, medical bill, job loss) could wipe out months of savings. The rent-to-income ratio of 37% is unsustainable.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-3 bg-red-50 rounded-xl p-4 border border-red-100">
+            <span class="text-lg flex-shrink-0">❌</span>
+            <div>
+                <p class="font-bold text-red-800 text-sm">DON'T: Choose Rome Suburbs expecting "the best of both worlds"</p>
+                <p class="text-xs text-red-700 mt-1">It captures neither Rome's cultural vibrancy nor a small city's walkability. Transport costs surge to €500/mo, and isolation risks are high — especially for the wife's extroverted personality and the family's need for community.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-3 bg-amber-50 rounded-xl p-4 border border-amber-100">
+            <span class="text-lg flex-shrink-0">⚠️</span>
+            <div>
+                <p class="font-bold text-amber-800 text-sm">WATCH OUT: Alberto's mental health in London long-term</p>
+                <p class="text-xs text-amber-700 mt-1">His stated need for sunshine directly conflicts with London's climate. Seasonal Affective Disorder (SAD) affects ~30% of UK residents. The financial gains may be offset by therapy, light therapy, and reduced productivity if his mental health declines.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-3 bg-amber-50 rounded-xl p-4 border border-amber-100">
+            <span class="text-lg flex-shrink-0">⚠️</span>
+            <div>
+                <p class="font-bold text-amber-800 text-sm">WATCH OUT: Italian salary stagnation over 10+ years</p>
+                <p class="text-xs text-amber-700 mt-1">Italy's tech salaries grow at ~2-3%/year vs UK's 5-8%. By age 44, Alberto's London salary could be £120k+ while his Italian equivalent may plateau at €45-50k. Factor in long-term wealth accumulation, pension contributions, and property equity.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Happiness Score Matrix -->
+<div>
+    <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+        <span class="w-7 h-7 bg-fuchsia-100 text-fuchsia-700 rounded-lg flex items-center justify-center text-sm font-black">5</span>
+        🎯 Happiness Score Matrix
+    </h3>
+    <div class="bg-slate-50 rounded-xl p-3 mb-4 text-xs text-slate-500 text-center font-medium">
+        <strong>Score Legend:</strong> 🤩 9-10 Amazing · 😄 7-8 Great · 🙂 5-6 Decent · 😟 3-4 Poor · 😩 1-2 Miserable
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+            <thead>
+                <tr class="border-b-2 border-slate-200">
+                    <th class="text-left py-3 px-3 text-[10px] font-black text-slate-400 uppercase w-40">Person</th>
+                    <th class="py-3 px-3 text-[10px] font-black text-blue-600 uppercase">🇬🇧 London</th>
+                    <th class="py-3 px-3 text-[10px] font-black text-emerald-600 uppercase">🇮🇹 Padova</th>
+                    <th class="py-3 px-3 text-[10px] font-black text-amber-600 uppercase">🇮🇹 Rome Center</th>
+                    <th class="py-3 px-3 text-[10px] font-black text-slate-500 uppercase">🇮🇹 Rome Suburbs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-slate-100">
+                    <td class="py-4 px-3 font-bold text-slate-700">🧔 <strong>Alberto</strong></td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>7</strong>/10<br>
+                        🙂 Mid: <strong>6</strong>/10<br>
+                        🙂 Long: <strong>5</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose bg-emerald-50/40">
+                        😄 Short: <strong>7</strong>/10<br>
+                        😄 Mid: <strong>8</strong>/10<br>
+                        😄 Long: <strong>8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>7</strong>/10<br>
+                        🙂 Mid: <strong>6</strong>/10<br>
+                        🙂 Long: <strong>5</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>5</strong>/10<br>
+                        😟 Mid: <strong>4</strong>/10<br>
+                        😟 Long: <strong>4</strong>/10
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-4 px-3 font-bold text-slate-700">👩 <strong>Wife</strong></td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6</strong>/10<br>
+                        🙂 Mid: <strong>5</strong>/10<br>
+                        😟 Long: <strong>4</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose bg-emerald-50/40">
+                        😄 Short: <strong>8</strong>/10<br>
+                        🤩 Mid: <strong>9</strong>/10<br>
+                        😄 Long: <strong>8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>8</strong>/10<br>
+                        😄 Mid: <strong>7</strong>/10<br>
+                        🙂 Long: <strong>6</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>5</strong>/10<br>
+                        😟 Mid: <strong>4</strong>/10<br>
+                        😟 Long: <strong>3</strong>/10
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-4 px-3 font-bold text-slate-700">👧 <strong>Daughter</strong> <span class="text-slate-400 font-normal">(3yo)</span></td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6</strong>/10<br>
+                        😄 Mid: <strong>7</strong>/10<br>
+                        😄 Long: <strong>7</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose bg-emerald-50/40">
+                        😄 Short: <strong>8</strong>/10<br>
+                        🤩 Mid: <strong>9</strong>/10<br>
+                        😄 Long: <strong>8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>7</strong>/10<br>
+                        😄 Mid: <strong>7</strong>/10<br>
+                        🙂 Long: <strong>6</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6</strong>/10<br>
+                        🙂 Mid: <strong>5</strong>/10<br>
+                        🙂 Long: <strong>5</strong>/10
+                    </td>
+                </tr>
+                <tr class="border-b border-slate-100">
+                    <td class="py-4 px-3 font-bold text-slate-700">👶 <strong>Son</strong> <span class="text-slate-400 font-normal">(1yo)</span></td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6</strong>/10<br>
+                        🙂 Mid: <strong>6</strong>/10<br>
+                        😄 Long: <strong>7</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose bg-emerald-50/40">
+                        😄 Short: <strong>8</strong>/10<br>
+                        🤩 Mid: <strong>9</strong>/10<br>
+                        😄 Long: <strong>8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>7</strong>/10<br>
+                        😄 Mid: <strong>7</strong>/10<br>
+                        🙂 Long: <strong>6</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6</strong>/10<br>
+                        🙂 Mid: <strong>5</strong>/10<br>
+                        🙂 Long: <strong>5</strong>/10
+                    </td>
+                </tr>
+                <tr class="bg-slate-100/60 font-bold">
+                    <td class="py-4 px-3 text-slate-800">👨‍👩‍👧‍👦 <strong>FAMILY TOTAL</strong></td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>6.3</strong>/10<br>
+                        🙂 Mid: <strong>6.0</strong>/10<br>
+                        🙂 Long: <strong>5.8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose bg-emerald-100/60 rounded-lg">
+                        😄 Short: <strong>7.8</strong>/10<br>
+                        🤩 Mid: <strong>8.8</strong>/10<br>
+                        😄 Long: <strong>8.0</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        😄 Short: <strong>7.3</strong>/10<br>
+                        🙂 Mid: <strong>6.8</strong>/10<br>
+                        🙂 Long: <strong>5.8</strong>/10
+                    </td>
+                    <td class="py-4 px-3 text-center leading-loose">
+                        🙂 Short: <strong>5.5</strong>/10<br>
+                        😟 Mid: <strong>4.5</strong>/10<br>
+                        😟 Long: <strong>4.3</strong>/10
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+        <p class="text-sm font-bold text-emerald-800">🏆 Verdict: <span class="text-emerald-600">Padova</span> wins across all time horizons with a family average of <strong>8.2/10</strong></p>
+        <p class="text-xs text-emerald-600 mt-1">Highest short-term (7.8), mid-term (8.8), and long-term (8.0) happiness scores for the entire family unit.</p>
+    </div>
+</div>
+<!-- ORIGINAL REPORT END -->
+</main>
+<script>document.getElementById('print-report').addEventListener('click', () => window.print());</script>
+</body>
+</html>

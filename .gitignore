@@ -1,0 +1,19 @@
+# Local credentials and environment files
+js/config.js
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+*service-account*.json
+
+# Local tools and generated files
+node_modules/
+.DS_Store
+playwright-report/
+test-results/
+
+# Python audit artifacts
+__pycache__/
+*.py[cod]
